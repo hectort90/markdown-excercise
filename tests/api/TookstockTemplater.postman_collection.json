@@ -1,0 +1,371 @@
+{
+  "info": {
+    "_postman_id": "7325303f-8109-47fa-8507-47fd113d149c",
+    "name": "TookstockTemplater",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "echo GET",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200)",
+              "})",
+              "",
+              "pm.test(\"Hello World\", function() {",
+              "    response_body = pm.response.json()    ",
+              "    pm.expect(response_body.message).to.eql(\"ECHOED\")",
+              "})",
+              "",
+              "pm.test(\"Headers Echoed\", function () {",
+              "    response_body = pm.response.json()",
+              "    pm.expect(response_body.headers[\"x-magic-header\"]).to.contain(\"special_value\")",
+              "})",
+              "",
+              "pm.test(\"Params Echoed\", function () {",
+              "    response_body = pm.response.json()",
+              "    pm.expect(response_body.query).to.eql({ speak: \"friend\" })",
+              "})",
+              "",
+              "pm.test(\"Hello World\", function() {",
+              "    headers = pm.response.headers.toObject()",
+              "    pm.expect(headers[\"x-open-sesame\"]).to.eql(\"ENTER\")",
+              "})"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-magic-header",
+            "value": "special_value",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{templater_host}}/echo?speak=friend",
+          "host": ["{{templater_host}}"],
+          "path": ["echo"],
+          "query": [
+            {
+              "key": "speak",
+              "value": "friend"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get /",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200)",
+              "})",
+              "",
+              "pm.test(\"Body has sample data\", function () {",
+              "  const body = pm.response.text()",
+              "  pm.expect(body).to.match(/Express/)",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{templater_host}}",
+          "host": ["{{templater_host}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "echo POST",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200)",
+              "})",
+              "",
+              "pm.test(\"Hello World\", function() {",
+              "    response_body = pm.response.json()    ",
+              "    pm.expect(response_body.message).to.eql(\"ECHOED\")",
+              "})",
+              "",
+              "pm.test(\"Headers Echoed\", function () {",
+              "    response_body = pm.response.json()",
+              "    pm.expect(response_body.headers[\"x-magic-header\"]).to.contain(\"special_value\")",
+              "})",
+              "",
+              "pm.test(\"Params Echoed\", function () {",
+              "    response_body = pm.response.json()",
+              "    pm.expect(response_body.query).to.eql({ speak: \"friend\" })",
+              "})",
+              "",
+              "pm.test(\"Hello World\", function() {",
+              "    headers = pm.response.headers.toObject()",
+              "    pm.expect(headers[\"x-open-sesame\"]).to.eql(\"ENTER\")",
+              "})"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-magic-header",
+            "value": "special_value",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"markdownDoc\": \"# Hello World\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{templater_host}}/echo?speak=friend",
+          "host": ["{{templater_host}}"],
+          "path": ["echo"],
+          "query": [
+            {
+              "key": "speak",
+              "value": "friend"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "simple markdown",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200)",
+              "})",
+              "",
+              "pm.test(\"HTML is returned\", function () {",
+              "  const body = pm.response.text()",
+              "  pm.expect(body).to.match(/<h1 id=\"helloworld\">Hello World!<\\/h1>/)",
+              "})"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"markdownDoc\": \"# Hello World!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{templater_host}}/render/markdown/tohtml",
+          "host": ["{{templater_host}}"],
+          "path": ["render", "markdown", "tohtml"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "markdown table",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200)",
+              "})",
+              "",
+              "const markdown_text = `|   Product Code   |         Product Name         |  Unit Price  | Quantity |  Total Price   |",
+              "| ---------------- | ---------------------------- | ------------ | -------- | -------------- |",
+              "| A45738           | Apples                       | $       1.25 |        7 | $         8.75 |",
+              "| A9683/BK/W       | Really Expensive Thing       | $ 123,456.78 |       10 | $ 1,234,567.80 |",
+              "| LONG-TITLE       | This Title is just way too long but we're ready for it anyway | $       1.00 |        4 | $         4.00 |",
+              "| YIKES            | SUUUPER Expensive Thing      | $ 1,234,567.89 |       10 | $ 12,345,678.90 |`",
+              "",
+              "pm.test(\"Table is formatted\", function () {",
+              "  const body = pm.response.text()",
+              "  pm.expect(body).to.eql(markdown_text)",
+              "})"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"templateName\": \"PurchaseTable\",\n  \"tableData\": [\n    {\n      \"title\": \"Apples\",\n      \"unitPrice\": \"1.25\",\n      \"quantity\": 7,\n      \"totalPrice\": \"8.75\",\n      \"productCode\": \"A45738\"\n    },\n    {\n      \"title\": \"Really Expensive Thing\",\n      \"unitPrice\": \"123,456.78\",\n      \"quantity\": 10,\n      \"totalPrice\": \"1,234,567.80\",\n      \"productCode\": \"A9683/BK/W\"\n    },\n    {\n      \"title\": \"This Title is just way too long but we're ready for it anyway\",\n      \"unitPrice\": \"1.00\",\n      \"quantity\": 4,\n      \"totalPrice\": \"4.00\",\n      \"productCode\": \"LONG-TITLE\",\n      \"isShipSeparately\": true\n    },\n    {\n      \"unitPrice\": \"1,234,567.89\",\n      \"quantity\": 10,\n      \"totalPrice\": \"12,345,678.90\",\n      \"productCode\": \"YIKES\",\n      \"title\": \"SUUUPER Expensive Thing\",\n      \"note\": \"Call if out of stock\"\n    }\n  ],\n  \"tableSpec\": {\n    \"fields\": {\n      \"productCode\": {\n        \"len\": 16,\n        \"human\": \"Product Code\"\n      },\n      \"title\": {\n        \"len\": 28,\n        \"human\": \"Product Name\"\n      },\n      \"unitPrice\": {\n        \"len\": 12,\n        \"as\": \"price\"\n      },\n      \"quantity\": {\n        \"len\": 8,\n        \"as\": \"int\"\n      },\n      \"totalPrice\": {\n        \"len\": 14,\n        \"as\": \"price\"\n      }\n    }\n  }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{templater_host}}/template/markdown/table",
+          "host": ["{{templater_host}}"],
+          "path": ["template", "markdown", "table"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "complex markdown",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "  pm.response.to.have.status(200)",
+              "})",
+              "",
+              "const table = `<table>",
+              "<thead>",
+              "<tr>",
+              "<th>Product Code</th>",
+              "<th>Product Name</th>",
+              "<th>Unit Price</th>",
+              "<th>Quantity</th>",
+              "<th>Total Price</th>",
+              "</tr>",
+              "</thead>",
+              "<tbody>",
+              "<tr>",
+              "<td>A45738</td>",
+              "<td>Apples</td>",
+              "<td>$       1.25</td>",
+              "<td>7</td>",
+              "<td>$         8.75</td>",
+              "</tr>",
+              "<tr>",
+              "<td>A9683/BK/W</td>",
+              "<td>Really Expensive Thing</td>",
+              "<td>$ 123,456.78</td>",
+              "<td>10</td>",
+              "<td>$ 1,234,567.80</td>",
+              "</tr>",
+              "<tr>",
+              "<td>LONG-TITLE</td>",
+              "<td>This Title is just way too long but we're ready for it anyway</td>",
+              "<td>$       1.00</td>",
+              "<td>4</td>",
+              "<td>$         4.00</td>",
+              "</tr>",
+              "<tr>",
+              "<td>YIKES</td>",
+              "<td>SUUUPER Expensive Thing</td>",
+              "<td>$ 1,234,567.89</td>",
+              "<td>10</td>",
+              "<td>$ 12,345,678.90</td>",
+              "</tr>",
+              "</tbody>",
+              "</table>`",
+              "",
+              "pm.test(\"HTML is returned\", function () {",
+              "  const body = pm.response.text()",
+              "  pm.expect(body).to.eql(table)",
+              "})"
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "const markdown_text = `|   Product Code   |         Product Name         |  Unit Price  | Quantity |  Total Price   |",
+              "| ---------------- | ---------------------------- | ------------ | -------- | -------------- |",
+              "| A45738           | Apples                       | $       1.25 |        7 | $         8.75 |",
+              "| A9683/BK/W       | Really Expensive Thing       | $ 123,456.78 |       10 | $ 1,234,567.80 |",
+              "| LONG-TITLE       | This Title is just way too long but we're ready for it anyway | $       1.00 |        4 | $         4.00 |",
+              "| YIKES            | SUUUPER Expensive Thing      | $ 1,234,567.89 |       10 | $ 12,345,678.90 |`",
+              "",
+              "pm.variables.set(\"markdown_text\", JSON.stringify(markdown_text))"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"markdownDoc\": {{markdown_text}},\n  \"markdownDoc2\": \"# Hello World!\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{templater_host}}/render/markdown/tohtml",
+          "host": ["{{templater_host}}"],
+          "path": ["render", "markdown", "tohtml"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "templater_host",
+      "value": "https://5iqd4.sse.codesandbox.io"
+    }
+  ]
+}

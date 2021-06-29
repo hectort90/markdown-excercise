@@ -1,0 +1,41 @@
+<table>
+<thead>
+<tr>
+<th>Product Code</th>
+<th>Product Name</th>
+<th>Unit Price</th>
+<th>Quantity</th>
+<th>Total Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A45738</td>
+<td>Apples</td>
+<td>$       1.25</td>
+<td>7</td>
+<td>$         8.75</td>
+</tr>
+<tr>
+<td>A9683/BK/W</td>
+<td>Really Expensive Thing</td>
+<td>$ 123,456.78</td>
+<td>10</td>
+<td>$ 1,234,567.80</td>
+</tr>
+<tr>
+<td>LONG-TITLE</td>
+<td>This Title is just way too long but we're ready for it anyway</td>
+<td>$       1.00</td>
+<td>4</td>
+<td>$         4.00</td>
+</tr>
+<tr>
+<td>YIKES</td>
+<td>SUUUPER Expensive Thing</td>
+<td>$ 1,234,567.89</td>
+<td>10</td>
+<td>$ 12,345,678.90</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,70 @@
+{
+  "name": "tookstock-templating",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "type": "module",
+  "license": "All rights reserved, property of Tookstock, inc",
+  "author": "Emilio Cardenas and the Tookstock team",
+  "scripts": {
+    "lintall": "eslint         --max-warnings 0 src",
+    "lint": "   eslint --cache --max-warnings 0 src",
+    "lint1": "  eslint --cache",
+    "lintfrom": "grep from src/*/* | ruby -ne 'puts \"%-48s %s\" % $_.split(\":\")'",
+    "start": "yarn watch",
+    "web": "nodemon app.js localhost 5200",
+    "watch": "yarn jest --watchAll",
+    "unit": "jest"
+  },
+  "lint-staged": {
+    "./{,src,pages}/**/*.{js,jsx}": "eslint --cache --max-warnings 0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn lintall"
+    }
+  },
+  "dependencies": {
+    "body-parser": "1.19.0",
+    "cookie-parser": "~1.4.4",
+    "express": "~4.16.1",
+    "express-validator": "6.11.1",
+    "inflected": "2.1.0",
+    "lodash": "4.17.21",
+    "markdown-table": "^3.0.1",
+    "morgan": "~1.9.1",
+    "request": "2.88.2",
+    "showdown": "1.9.1",
+    "sprintf-js": "1.1.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.14.3",
+    "@babel/core": "7.14.3",
+    "@babel/eslint-parser": "~7.13.8",
+    "@babel/plugin-proposal-class-properties": "~7.13.0",
+    "@babel/plugin-proposal-do-expressions": "~7.12.13",
+    "@babel/plugin-proposal-logical-assignment-operators": "~7.13.8",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "~7.13.8",
+    "@babel/plugin-proposal-numeric-separator": "~7.12.13",
+    "@babel/plugin-proposal-optional-chaining": "~7.13.8",
+    "@babel/plugin-proposal-private-methods": "^7.13.0",
+    "@babel/plugin-proposal-throw-expressions": "~7.12.13",
+    "@babel/plugin-transform-modules-commonjs": "~7.13.8",
+    "@babel/plugin-transform-runtime": "~7.13.8",
+    "@babel/preset-env": "~7.13.8",
+    "babel-jest": "27.0.1",
+    "chai": "4.3.4",
+    "chai-arrays": "2.2.0",
+    "eslint": "7.27.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-plugin-chai-expect": "2.2.0",
+    "eslint-plugin-chai-friendly": "0.7.1",
+    "eslint-plugin-import": "2.23.3",
+    "eslint-plugin-jest": "24.3.6",
+    "jest": "27.0.1",
+    "nodemon": "1.18.4",
+    "typescript": "4.3.2"
+  },
+  "keywords": []
+}
